@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<div id="fastclick" class="content">
+<div class="content">
   <h1 class="title">Beer Challenge</h1>
   <img class="logo" src="img/logo.png"/>
   <p id="debug"></p>
@@ -20,12 +20,10 @@
 
 <script type="text/javascript" src="cordova.js"></script>
 <script type="text/javascript" src="js/lodash.min.js"></script>
-<script type="text/javascript" src="js/fastclick.js"></script>
 <script type="text/javascript">
   document.addEventListener('deviceready', onDeviceReady, false)
 
   function onDeviceReady() {
-    initFastButtons()
     document.querySelector('.content').setAttribute('style', 'display: block;')
 
     var maxPrev = 0
