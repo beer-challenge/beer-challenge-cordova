@@ -1,0 +1,14 @@
+cp www/img/logo.png platforms/android/res/drawable/icon.png
+sips -Z 96 platforms/android/res/drawable/icon.png
+
+cp www/img/logo.png platforms/android/res/drawable-hdpi/icon.png
+sips -Z 72 platforms/android/res/drawable-hdpi/icon.png
+
+cp www/img/logo.png platforms/android/res/drawable-ldpi/icon.png
+sips -Z 36 platforms/android/res/drawable-ldpi/icon.png
+
+cp www/img/logo.png platforms/android/res/drawable-mdpi/icon.png
+sips -Z 48 platforms/android/res/drawable-mdpi/icon.png
+
+cp www/img/logo.png platforms/android/res/drawable-xhdpi/icon.png
+sips -Z 96 platforms/android/res/drawable-xhdpi/icon.png
