@@ -14,14 +14,41 @@
 <div class="content">
   <h1 class="title">Beer Challenge</h1>
   <img class="logo" src="img/logo.png"/>
+  <p id="debug"></p>
 </div>
 
 <script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="js/lodash.min.js"></script>
 <script type="text/javascript">
   document.addEventListener('deviceready', onDeviceReady, false)
 
   function onDeviceReady() {
     document.querySelector('.content').setAttribute('style', 'display: block;')
+
+    var maxPrev = 0
+    var accPrev = undefined
+    var start = Date.now()
+    var count = 0
+    navigator.accelerometer.watchAcceleration(onSuccess, function(e) {
+      alert('Accel error', e)
+    }, {frequency: 10})
+
+    function onSuccess(acceleration) {
+      var acc = [acceleration.x, acceleration.y, acceleration.z]
+      count++
+      if (accPrev) {
+        var change = _.zip(accPrev, acc).map(function(vals) {
+          return _.reduce(vals, function(sum, num) {
+            return sum - num
+          })
+        })
+        var maxNow = Math.max.apply(Math, _.map(change, Math.abs))
+        maxPrev = Math.max(maxNow, maxPrev)
+        var secsFromStart = (Date.now() - start) / 1000
+        document.getElementById('debug').innerText = 'MAX: ' + maxPrev.toFixed(2) + ' rate: ' + (count / secsFromStart).toFixed(0)
+      }
+      accPrev = acc
+    }
   }
 </script>
 
