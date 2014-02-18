@@ -27,3 +27,14 @@ body {
 .logo {
     width: 25%;
 }
+
+.button {
+    color: #ffc230;
+    background-color: black;
+    border: none;
+    font-size: 200%;
+}
+
+.button:active {
+    background-color: red;
+}

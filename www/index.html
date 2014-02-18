@@ -15,6 +15,7 @@
   <h1 class="title">Beer Challenge</h1>
   <img class="logo" src="img/logo.png"/>
   <p id="debug"></p>
+  <button class="button">reset</button>
 </div>
 
 <script type="text/javascript" src="cordova.js"></script>
@@ -31,7 +32,7 @@
     var count = 0
     navigator.accelerometer.watchAcceleration(onSuccess, function(e) {
       alert('Accel error', e)
-    }, {frequency: 1})
+    }, {frequency: 20})
 
     function onSuccess(acceleration) {
       var acc = [acceleration.x, acceleration.y, acceleration.z]
