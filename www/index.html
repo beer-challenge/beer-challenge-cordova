@@ -31,7 +31,7 @@
     var count = 0
     navigator.accelerometer.watchAcceleration(onSuccess, function(e) {
       alert('Accel error', e)
-    }, {frequency: 10})
+    }, {frequency: 1})
 
     function onSuccess(acceleration) {
       var acc = [acceleration.x, acceleration.y, acceleration.z]
@@ -45,7 +45,7 @@
         var maxNow = Math.max.apply(Math, _.map(change, Math.abs))
         maxPrev = Math.max(maxNow, maxPrev)
         var secsFromStart = (Date.now() - start) / 1000
-        document.getElementById('debug').innerText = 'MAX: ' + maxPrev.toFixed(2) + ' rate: ' + (count / secsFromStart).toFixed(0)
+        document.getElementById('debug').innerText = 'MAX: ' + maxPrev.toFixed(2) + ' now: ' + maxNow.toFixed(2) + ' rate: ' + (count / secsFromStart).toFixed(0)
       }
       accPrev = acc
     }
