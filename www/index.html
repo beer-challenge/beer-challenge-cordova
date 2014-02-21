@@ -15,7 +15,10 @@
     <div class="face front">
       <img class="nexus7reso" src="img/aloitus.png"/>
     </div>
-    <div class="face back content">
+    <div class="face back">
+      <img class="nexus7reso" src="img/timer-zero.png"/>
+    </div>
+    <div class="content">
       <h1 class="title">Beer Challenge</h1>
       <img class="logo" src="img/logo.png"/>
 
@@ -29,16 +32,15 @@
 <script type="text/javascript" src="js/lodash.min.js"></script>
 <script type="text/javascript" src="js/jquery-2.1.0.min.js"></script>
 <script type="text/javascript">
-  $('.flip').click(function() {
-    $(this).find('.card').addClass('flipped').mouseleave(function() {
-      $(this).removeClass('flipped')
-    })
+  document.addEventListener('deviceready', onDeviceReady, false)
+  $('.card').on('touchstart mousedown', function() {
+    $(this).addClass('flipped')
+  }).on('touchend mouseup', function() {
+    $(this).removeClass('flipped')
   })
 
-  document.addEventListener('deviceready', onDeviceReady, false)
-
   function onDeviceReady() {
-    document.querySelector('.content').setAttribute('style', 'display: block;')
+    //document.querySelector('.content').setAttribute('style', 'display: block;')
     document.querySelector('.button').addEventListener('touchstart', function() {
       this.setAttribute('class', 'button button_active')
       maxPrev = 0
