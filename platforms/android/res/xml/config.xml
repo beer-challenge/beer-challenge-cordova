@@ -12,6 +12,9 @@
         <param name="android-package" value="org.apache.cordova.devicemotion.AccelListener" />
     </feature>
     <name>Beer Challenge</name>
+    <preference name="Fullscreen" value="true" />
+    <preference name="Orientation" value="portrait" />
+    <preference name="DisallowOverscroll" value="true" />
     <description>
         http://beer-challenge.com
     </description>
