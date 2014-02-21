@@ -10,19 +10,31 @@
   <title>Beer Challenge</title>
 </head>
 <body>
+<div class="flip">
+  <div class="card">
+    <div class="face front">
+      <img class="nexus7reso" src="img/aloitus.png"/>
+    </div>
+    <div class="face back content">
+      <h1 class="title">Beer Challenge</h1>
+      <img class="logo" src="img/logo.png"/>
 
-<div class="content">
-  <h1 class="title">Beer Challenge</h1>
-  <img class="logo" src="img/logo.png"/>
-
-  <p id="debug"></p>
-  <button class="button">reset</button>
+      <p id="debug"></p>
+      <button class="button">reset</button>
+    </div>
+  </div>
 </div>
 
 <script type="text/javascript" src="cordova.js"></script>
 <script type="text/javascript" src="js/lodash.min.js"></script>
 <script type="text/javascript" src="js/jquery-2.1.0.min.js"></script>
 <script type="text/javascript">
+  $('.flip').click(function() {
+    $(this).find('.card').addClass('flipped').mouseleave(function() {
+      $(this).removeClass('flipped')
+    })
+  })
+
   document.addEventListener('deviceready', onDeviceReady, false)
 
   function onDeviceReady() {
@@ -30,6 +42,7 @@
     document.querySelector('.button').addEventListener('touchstart', function() {
       this.setAttribute('class', 'button button_active')
       maxPrev = 0
+      $('.card').removeClass('flipped')
     })
     document.querySelector('.button').addEventListener('touchend', function() {
       this.setAttribute('class', 'button')
