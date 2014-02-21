@@ -43,13 +43,13 @@ body {
 .flip {
     -webkit-perspective: 800;
     width: 100%;
-    height: 960px;
+    height: 1920px;
     position: relative;
 }
 
 .nexus7reso {
-    height: 960px;
-    width: 600px;
+    height: 1920px;
+    width: 1200px;
 }
 
 .flip .card.flipped {
