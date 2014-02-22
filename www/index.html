@@ -37,6 +37,7 @@
   bindUIfunctionality()
   warmupUIforFastFirstResponse()
   document.addEventListener('deviceready', onDeviceReady, false)
+  var startTime = 0
 
   function warmupUIforFastFirstResponse() {
     $('.card').addClass('flipped')
@@ -49,12 +50,22 @@
     $('.card').on('touchstart mousedown',function() {
       $(this).addClass('flipped')
     }).on('touchend mouseup', function() {
-          $(this).removeClass('flipped')
+          if (startTime == 0) {
+            startTime = Date.now()
+            startTimer()
+          }
         })
     //Disable scrolling of view (when Android navigation menu is shown)
     document.addEventListener('touchmove', function(e) {
       e.preventDefault()
     }, false)
+
+    function startTimer() {
+      var elapsedMillis = Date.now() - startTime
+      $('.seconds').text(Math.floor(elapsedMillis / 1000))
+      $('.tenths').text(Math.floor(elapsedMillis / 100) % 10)
+      window.requestAnimationFrame(startTimer)
+    }
   }
 
   function onDeviceReady() {
