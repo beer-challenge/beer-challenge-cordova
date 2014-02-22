@@ -34,6 +34,8 @@
 <script type="text/javascript" src="js/lodash.min.js"></script>
 <script type="text/javascript" src="js/jquery-2.1.0.min.js"></script>
 <script type="text/javascript">
+  var trembleThreshold = 3.6
+
   bindUIfunctionality()
   warmupUIforFastFirstResponse()
   document.addEventListener('deviceready', onDeviceReady, false)
@@ -112,7 +114,7 @@
         })
         var maxNow = Math.max.apply(Math, _.map(change, Math.abs))
         maxPrev = Math.max(maxNow, maxPrev)
-        if (maxPrev > 3.6) {
+        if (maxPrev > trembleThreshold) {
           stopTime = Date.now()
         }
       }
