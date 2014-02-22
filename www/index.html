@@ -63,7 +63,18 @@
 
     function startTimer() {
       var elapsedMillis = Date.now() - startTime
-      $('.seconds').text(Math.floor(elapsedMillis / 1000))
+      var secs = Math.floor(elapsedMillis / 1000)
+      if (secs > $('.seconds').text()) {
+        if (secs == 10) {
+          $(".seconds").css('font-size', 230)
+        } else if (secs == 100) {
+          $(".seconds").css('font-size', 185)
+        } else if (secs > 100) {
+          var sizePx = $(".seconds").css('font-size')
+          $(".seconds").css('font-size', sizePx.substring(0, sizePx.indexOf('px')) - 1)
+        }
+        $(".seconds").text(secs)
+      }
       $('.tenths').text(Math.floor(elapsedMillis / 100) % 10)
       if (stopTime == 0) {
         window.requestAnimationFrame(startTimer)
