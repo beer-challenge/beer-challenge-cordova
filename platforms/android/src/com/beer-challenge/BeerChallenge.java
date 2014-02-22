@@ -17,7 +17,7 @@
        under the License.
  */
 
-package com.beer_challenge;
+package com.beer-challenge;
 
 import android.os.Bundle;
 import org.apache.cordova.*;
