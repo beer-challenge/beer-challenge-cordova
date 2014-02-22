@@ -5,3 +5,4 @@ cd bin
 jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore /Users/amattila/Documents/beer-challenge.keystore BeerChallenge-release-unsigned.apk beer-challenge
 jarsigner -verify -verbose -certs BeerChallenge-release-unsigned.apk
 zipalign -v 4 BeerChallenge-release-unsigned.apk BeerChallenge.apk
+cp BeerChallenge.apk ../../../../beer-challenge.com/
