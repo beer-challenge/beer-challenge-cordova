@@ -40,6 +40,20 @@ body {
     background-color: red;
 }
 
+@font-face {
+    font-family: BebasNeue;
+    src: url(fonts/BebasNeue.otf);
+}
+
+.seconds {
+    color: #43614C;
+    position: absolute;
+    top: 240px;
+    left: 250px;
+    font-size: 275px;
+    font-family: BebasNeue;
+}
+
 .flip {
     -webkit-perspective: 800;
     width: 100%;
