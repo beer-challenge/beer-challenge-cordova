@@ -54,6 +54,15 @@ body {
     font-family: BebasNeue;
 }
 
+.tenths {
+    color: #43614C;
+    position: absolute;
+    top: 200px;
+    left: 430px;
+    font-size: 140px;
+    font-family: BebasNeue;
+}
+
 .flip {
     -webkit-perspective: 800;
     width: 100%;
