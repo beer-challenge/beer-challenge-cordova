@@ -32,6 +32,7 @@
 <script type="text/javascript" src="js/lodash.min.js"></script>
 <script type="text/javascript" src="js/jquery-2.1.0.min.js"></script>
 <script type="text/javascript">
+  warmupUIforFastFirstResponse()
   document.addEventListener('deviceready', onDeviceReady, false)
   $('.card').on('touchstart mousedown', function() {
     $(this).addClass('flipped')
@@ -40,6 +41,13 @@
   })
   //Disable scrolling of view (when Android navigation menu is shown)
   document.addEventListener('touchmove', function(e) { e.preventDefault() }, false)
+
+  function warmupUIforFastFirstResponse() {
+    $('.card').addClass('flipped')
+    window.requestAnimationFrame(function() {
+      $('.card').removeClass('flipped')
+    })
+  }
 
   function onDeviceReady() {
     //document.querySelector('.content').setAttribute('style', 'display: block;')
