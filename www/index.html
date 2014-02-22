@@ -38,6 +38,7 @@
   warmupUIforFastFirstResponse()
   document.addEventListener('deviceready', onDeviceReady, false)
   var startTime = 0
+  var stopTime = 0
 
   function warmupUIforFastFirstResponse() {
     $('.card').addClass('flipped')
@@ -64,7 +65,9 @@
       var elapsedMillis = Date.now() - startTime
       $('.seconds').text(Math.floor(elapsedMillis / 1000))
       $('.tenths').text(Math.floor(elapsedMillis / 100) % 10)
-      window.requestAnimationFrame(startTimer)
+      if (stopTime == 0) {
+        window.requestAnimationFrame(startTimer)
+      }
     }
   }
 
@@ -98,8 +101,9 @@
         })
         var maxNow = Math.max.apply(Math, _.map(change, Math.abs))
         maxPrev = Math.max(maxNow, maxPrev)
-        var secsFromStart = (Date.now() - start) / 1000
-        document.getElementById('debug').innerText = 'MAX: ' + maxPrev.toFixed(2) + ' rate: ' + (count / secsFromStart).toFixed(0)
+        if (maxPrev > 3.6) {
+          stopTime = Date.now()
+        }
       }
       accPrev = acc
     }
