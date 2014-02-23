@@ -55,15 +55,20 @@
     }).on('touchend mouseup', function() {
           if (startTime == 0) {
             startTime = Date.now()
-            startTimer()
+            updateTime()
           }
         })
     //Disable scrolling of view (when Android navigation menu is shown)
     document.addEventListener('touchmove', function(e) {
       e.preventDefault()
     }, false)
+    document.addEventListener("backbutton", onBackButton, false)
 
-    function startTimer() {
+    function onBackButton() {
+      $('.card').removeClass('flipped')
+    }
+
+    function updateTime() {
       var elapsedMillis = Date.now() - startTime
       var secs = Math.floor(elapsedMillis / 1000)
       if (secs > $('.seconds').text()) {
@@ -79,7 +84,7 @@
       }
       $('.tenths').text(Math.floor(elapsedMillis / 100) % 10)
       if (stopTime == 0) {
-        window.requestAnimationFrame(startTimer)
+        window.requestAnimationFrame(updateTime)
       }
     }
   }
@@ -97,7 +102,6 @@
 
     var maxPrev = 0
     var accPrev = undefined
-    var start = Date.now()
     var count = 0
     navigator.accelerometer.watchAcceleration(onSuccess, function(e) {
       alert('Accel error', e)
