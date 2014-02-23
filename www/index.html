@@ -20,13 +20,6 @@
       <div class="tenths">0</div>
       <img class="nexus7reso" src="img/timer-zero.png"/>
     </div>
-    <div class="content">
-      <h1 class="title">Beer Challenge</h1>
-      <img class="logo" src="img/logo.png"/>
-
-      <p id="debug"></p>
-      <button class="button">reset</button>
-    </div>
   </div>
 </div>
 
@@ -90,26 +83,14 @@
   }
 
   function onDeviceReady() {
-    //document.querySelector('.content').setAttribute('style', 'display: block;')
-    document.querySelector('.button').addEventListener('touchstart', function() {
-      this.setAttribute('class', 'button button_active')
-      maxPrev = 0
-      $('.card').removeClass('flipped')
-    })
-    document.querySelector('.button').addEventListener('touchend', function() {
-      this.setAttribute('class', 'button')
-    })
-
     var maxPrev = 0
     var accPrev = undefined
-    var count = 0
     navigator.accelerometer.watchAcceleration(onSuccess, function(e) {
       alert('Accel error', e)
     }, {frequency: 10})
 
     function onSuccess(acceleration) {
       var acc = [acceleration.x, acceleration.y, acceleration.z]
-      count++
       if (accPrev) {
         var change = _.zip(accPrev, acc).map(function(vals) {
           return _.reduce(vals, function(sum, num) {
