@@ -26,14 +26,19 @@
 <script type="text/javascript" src="cordova.js"></script>
 <script type="text/javascript" src="js/lodash.min.js"></script>
 <script type="text/javascript" src="js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript" src="js/accel.js"></script>
 <script type="text/javascript">
   var trembleThreshold = 2.2
+  var startTime = 0
+  var stopTime = 0
 
   bindUIfunctionality()
   warmupUIforFastFirstResponse()
-  document.addEventListener('deviceready', onDeviceReady, false)
-  var startTime = 0
-  var stopTime = 0
+  document.addEventListener('deviceready', function() {
+    notifyOnTrembleThreshold(trembleThreshold, function(time) {
+      stopTime = time;
+    })
+  })
 
   function warmupUIforFastFirstResponse() {
     $('.card').addClass('flipped')
@@ -79,31 +84,6 @@
       if (stopTime == 0) {
         window.requestAnimationFrame(updateTime)
       }
-    }
-  }
-
-  function onDeviceReady() {
-    var maxPrev = 0
-    var accPrev = undefined
-    navigator.accelerometer.watchAcceleration(onSuccess, function(e) {
-      alert('Accel error', e)
-    }, {frequency: 10})
-
-    function onSuccess(acceleration) {
-      var acc = [acceleration.x, acceleration.y, acceleration.z]
-      if (accPrev) {
-        var change = _.zip(accPrev, acc).map(function(vals) {
-          return _.reduce(vals, function(sum, num) {
-            return sum - num
-          })
-        })
-        var maxNow = Math.max.apply(Math, _.map(change, Math.abs))
-        maxPrev = Math.max(maxNow, maxPrev)
-        if (maxPrev > trembleThreshold) {
-          stopTime = Date.now()
-        }
-      }
-      accPrev = acc
     }
   }
 </script>
