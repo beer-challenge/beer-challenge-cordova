@@ -31,14 +31,26 @@
   var trembleThreshold = 2.2
   var startTime = 0
   var stopTime = 0
+  var highscores = undefined
 
   bindUIfunctionality()
   warmupUIforFastFirstResponse()
+  fetchHighScores()
   document.addEventListener('deviceready', function() {
-    notifyOnTrembleThreshold(trembleThreshold, function(time) {
-      stopTime = time;
-    })
+    notifyOnTrembleThreshold(trembleThreshold, boom)
   })
+
+  function boom(time) {
+    if (startTime !== 0) {
+      stopTime = time
+    }
+  }
+
+  function fetchHighScores() {
+    $.post('http://www.beer-challenge.com/highscores').done(function(data) {
+      highscores = data
+    })
+  }
 
   function warmupUIforFastFirstResponse() {
     $('.card').addClass('flipped')
