@@ -217,6 +217,9 @@
         <Compile Include="Plugins\org.apache.cordova.device-motion\Accelerometer.cs" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="Plugins\org.apache.cordova.geolocation\Geolocation.cs" />
+    </ItemGroup>
+    <ItemGroup>
         <Content Include="www\plugins\org.apache.cordova.device-motion\www\Acceleration.js" />
     </ItemGroup>
     <ItemGroup>

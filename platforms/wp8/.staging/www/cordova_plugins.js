@@ -18,7 +18,8 @@ module.exports = [
 module.exports.metadata = 
 // TOP OF METADATA
 {
-    "org.apache.cordova.device-motion": "0.2.6"
+    "org.apache.cordova.device-motion": "0.2.6",
+    "org.apache.cordova.geolocation": "0.3.6"
 }
 // BOTTOM OF METADATA
 });
