@@ -38,6 +38,21 @@
   fetchHighScores()
   document.addEventListener('deviceready', function() {
     notifyOnTrembleThreshold(trembleThreshold, boom)
+    navigator.geolocation.getCurrentPosition(function(pos) {
+      $.post('http://www.beer-challenge.com/highscores', { location: pos })
+          .done(function(data) {
+            if (!highscores && !highscores.location) {
+              data.location = pos
+              highscores = data
+            }
+          })
+    }, function() {
+      $.post('http://www.beer-challenge.com/noBeer', { msg: 'no location'})
+    }, {
+      enableHighAccuracy: true,
+      timeout: 20000,
+      maximumAge: 18000000
+    })
   })
 
   function boom(time) {

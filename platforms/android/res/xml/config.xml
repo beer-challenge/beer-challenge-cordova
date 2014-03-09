@@ -11,6 +11,9 @@
     <feature name="Accelerometer">
         <param name="android-package" value="org.apache.cordova.devicemotion.AccelListener" />
     </feature>
+    <feature name="Geolocation">
+        <param name="android-package" value="org.apache.cordova.geolocation.GeoBroker" />
+    </feature>
     <name>Beer Challenge</name>
     <preference name="Fullscreen" value="true" />
     <preference name="Orientation" value="portrait" />
@@ -23,7 +26,4 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
-    <feature name="Geolocation">
-        <param name="android-package" value="org.apache.cordova.geolocation.GeoBroker" />
-    </feature>
 </widget>
