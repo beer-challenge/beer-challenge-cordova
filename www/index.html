@@ -19,6 +19,14 @@
       <div class="seconds">0</div>
       <div class="tenths">0</div>
       <img class="nexus7reso" src="img/timer-zero.png"/>
+
+      <div class="top-area">
+        GET READY.<br/>LIFT YOUR HAND AND DRINK!
+      </div>
+      <div class="bottom-area">
+        <img class="button-release" src="img/btn-bg-release-full.png"/>
+        <img class="button-slam" src="img/notification-slam-to-stop.png"/>
+      </div>
     </div>
   </div>
 </div>
@@ -79,8 +87,7 @@
       $(this).addClass('flipped')
     }).on('touchend mouseup', function() {
           if (startTime == 0) {
-            startTime = Date.now()
-            updateTime()
+            go()
           }
         })
     //Disable scrolling of view (when Android navigation menu is shown)
@@ -88,6 +95,16 @@
       e.preventDefault()
     }, false)
     document.addEventListener("backbutton", onBackButton, false)
+
+    function go() {
+      startTime = Date.now()
+      updateTime()
+      $('.top-area').css('font-size', '80px')
+      $('.top-area').css('margin-top', '20px')
+      $('.top-area').text('GO!')
+      $('.button-release').hide()
+      $('.button-slam').show()
+    }
 
     function onBackButton() {
       $('.card').removeClass('flipped')

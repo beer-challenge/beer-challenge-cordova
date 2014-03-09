@@ -106,3 +106,34 @@ body {
 .flip .card .back {
     -webkit-transform: rotatey(-180deg);
 }
+
+.top-area {
+    position: absolute;
+    top: 25px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: #27372c;
+    font-size: 50px;
+    font-family: BebasNeue;
+}
+
+.bottom-area {
+    position: absolute;
+    top: 600px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.button-release {
+    width: 261px;
+    height: 301px;
+}
+
+.button-slam {
+    display: none;
+    width: 174px;
+    height: 69px;
+    margin-top: 130px;
+}
