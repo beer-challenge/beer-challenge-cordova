@@ -40,6 +40,7 @@
   var startTime = 0
   var stopTime = 0
   var highscores = undefined
+  var GPSlocation = undefined
 
   bindUIfunctionality()
   warmupUIforFastFirstResponse()
@@ -47,15 +48,13 @@
   document.addEventListener('deviceready', function() {
     notifyOnTrembleThreshold(trembleThreshold, boom)
     navigator.geolocation.getCurrentPosition(function(pos) {
+      GPSlocation = pos
       $.post('http://www.beer-challenge.com/highscores', { location: pos })
           .done(function(data) {
-            if (!highscores && !highscores.location) {
-              data.location = pos
-              highscores = data
-            }
+            highscores = data
           })
     }, function() {
-      $.post('http://www.beer-challenge.com/noBeer', { msg: 'no location'})
+      $.post('http://www.beer-challenge.com/noBeer', { msg: 'no GPSlocation'})
     }, {
       enableHighAccuracy: true,
       timeout: 20000,
@@ -64,16 +63,22 @@
   })
 
   function boom(time) {
-    if (startTime !== 0) {
+    if (startTime !== 0 && stopTime == 0) {
       stopTime = time
       $('.top-area').text('NICE!')
       $('.button-slam').hide()
+      $.post('http://www.beer-challenge.com/highscores', {
+        location: GPSlocation,
+        score: stopTime - startTime
+      })
     }
   }
 
   function fetchHighScores() {
     $.post('http://www.beer-challenge.com/highscores').done(function(data) {
-      highscores = data
+      if (!highscores) {
+        highscores = data
+      }
     })
   }
 
