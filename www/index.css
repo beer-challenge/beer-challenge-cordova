@@ -137,3 +137,49 @@ body {
     height: 69px;
     margin-top: 130px;
 }
+
+.highscores {
+    position: absolute;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    font-family: BebasNeue;
+    color: #27372c;
+    display: none;
+}
+
+.highscores .highscores__title {
+    font-size: 40px;
+    border-bottom: solid 1px #27372c;
+    margin: 0 40px 30px 40px;
+}
+
+.highscores .list {
+    counter-reset: item;
+    list-style-type: none;
+    columns: 2;
+    -webkit-columns: 2;
+    -moz-columns: 2;
+    text-align: left;
+    width: 60%;
+    margin: auto;
+    font-size: 26px;
+}
+
+.highscores .list .score:before {
+    content: counter(item) "  ";
+    counter-increment: item;
+    display: inline-block;
+    width: 40px;
+}
+
+.highscores .list .score .name {
+    display: inline-block;
+    width: 40px;
+}
+
+.highscores .list .score .time {
+    width: 55px;
+    display: inline-block;
+    text-align: right;
+}

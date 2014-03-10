@@ -26,6 +26,12 @@
       <div class="bottom-area">
         <img class="button-release" src="img/btn-bg-release-full.png"/>
         <img class="button-slam" src="img/notification-slam-to-stop.png"/>
+
+        <div class="highscores">
+          <div class="highscores__title">TODAYS BEST</div>
+          <ol class="list">
+          </ol>
+        </div>
       </div>
     </div>
   </div>
@@ -67,6 +73,13 @@
       stopTime = time
       $('.top-area').text('NICE!')
       $('.button-slam').hide()
+      if (highscores && highscores.list) {
+        var listHtml = _.map(highscores.list, function(h, i) {
+          return '<li class="score"><span class="name">' + h.name + '</span><span class="time">' + h.time + '</span></li>'
+        })
+        $('.highscores .list').html(listHtml)
+        $('.highscores').show()
+      }
       $.post('http://www.beer-challenge.com/highscores', {
         location: GPSlocation,
         score: stopTime - startTime
