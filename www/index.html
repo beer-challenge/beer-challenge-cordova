@@ -103,6 +103,11 @@
   }
 
   function bindUIfunctionality() {
+    $('body').css('font-size', Math.floor($(window).width() / 15) + 'px')
+    $('.seconds').css('top', Math.floor($(window).width() / 2.35) + 'px')
+    $('.seconds').css('line-height', Math.floor($(window).width() / 2) + 'px')
+    $('.tenths').css('top', Math.floor($(window).width() / 2.8) + 'px')
+    $('.bottom-area').css('top', Math.floor($(window).width()) + 'px')
     $('.card').on('touchstart mousedown',function() {
       $(this).addClass('flipped')
     }).on('touchend mouseup', function() {
@@ -119,8 +124,7 @@
     function go() {
       startTime = Date.now()
       updateTime()
-      $('.top-area').css('font-size', '80px')
-      $('.top-area').css('margin-top', '20px')
+      $('.top-area').css('font-size', '260%')
       $('.top-area').text('GO!')
       $('.button-release').hide()
       $('.button-slam').show()
@@ -136,9 +140,9 @@
       var secs = Math.floor(elapsedMillis / 1000)
       if (secs > $('.seconds').text()) {
         if (secs == 10) {
-          $(".seconds").css('font-size', 230)
+          $(".seconds").css('font-size', '600%')
         } else if (secs == 100) {
-          $(".seconds").css('font-size', 185)
+          $(".seconds").css('font-size', '500%')
         } else if (secs > 100) {
           var sizePx = $(".seconds").css('font-size')
           $(".seconds").css('font-size', sizePx.substring(0, sizePx.indexOf('px')) - 1)

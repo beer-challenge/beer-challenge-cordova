@@ -9,7 +9,7 @@ body {
     background-color: black;
     background-attachment: fixed;
     font-family: 'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
-    font-size: 12px;
+    font-size: 24px;
     height: 100%;
     width: 100%;
     margin: 0;
@@ -53,12 +53,10 @@ body {
 .seconds {
     color: #43614C;
     position: absolute;
-    top: 250px;
-    left: 140px;
-    width: 318px;
-    height: 304px;
-    line-height: 304px;
-    font-size: 275px;
+    top: 25.5%;
+    left: 0;
+    width: 100%;
+    font-size: 750%;
     font-family: BebasNeue;
     text-align: center;
 }
@@ -66,9 +64,9 @@ body {
 .tenths {
     color: #43614C;
     position: absolute;
-    top: 200px;
-    left: 430px;
-    font-size: 140px;
+    top: 9%;
+    left: 72.5%;
+    font-size: 300%;
     font-family: BebasNeue;
 }
 
@@ -80,8 +78,7 @@ body {
 }
 
 .nexus7reso {
-    height: 960px;
-    width: 600px;
+    width: 100%;
 }
 
 .flip .card.flipped {
@@ -114,12 +111,12 @@ body {
 
 .top-area {
     position: absolute;
-    top: 25px;
+    top: 0.5em;
     left: 0;
     width: 100%;
     text-align: center;
     color: #27372c;
-    font-size: 50px;
+    font-size: 140%;
     font-family: BebasNeue;
 }
 
