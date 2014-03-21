@@ -45,6 +45,11 @@ body {
     src: url(fonts/BebasNeue.otf);
 }
 
+@font-face {
+    font-family: Frontage-Regular;
+    src: url(fonts/Frontage-Regular.otf);
+}
+
 .seconds {
     color: #43614C;
     position: absolute;
@@ -152,6 +157,7 @@ body {
     font-size: 40px;
     border-bottom: solid 1px #27372c;
     margin: 0 40px 30px 40px;
+    font-family: Frontage-Regular;
 }
 
 .highscores .list {
