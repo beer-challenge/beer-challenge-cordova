@@ -88,7 +88,7 @@
   }
 
   function fetchHighScores() {
-    $.post('http://www.beer-challenge.com/highscores').done(function(data) {
+    $.get('http://www.beer-challenge.com/highscores').done(function(data) {
       if (!highscores) {
         highscores = data
       }
