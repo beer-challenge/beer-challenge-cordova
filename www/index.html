@@ -26,6 +26,7 @@
       <div class="name-input-area">
         <input type="text" value="click here">
         <img src="img/name-input.png">
+
         <div class="cancel"></div>
         <div class="ok"></div>
       </div>
@@ -82,14 +83,21 @@
       $('.name-input-area').show()
       $('.top-area').text('NICE!')
       $('.button-slam').hide()
-      if (highscores && highscores.list) {
-        var listHtml = _.map(highscores.list, function(h, i) {
-          var time = isNaN(h.time) || h.time > 999999 ? 999.9 : (Math.floor(h.time / 100) / 10).toFixed(1)
-          return '<li class="score"><span class="name">' + h.name + '</span><span class="time">' + time + '</span></li>'
-        })
-        $('.highscores .list').html(listHtml)
-        $('.highscores').show()
-      }
+      renderHighScores()
+    }
+  }
+
+  function renderHighScores() {
+    if (highscores && highscores.list) {
+      var sorted = _.sortBy(highscores.list, function(i) {
+        return i.time
+      })
+      var listHtml = _.map(sorted.slice(0, 10), function(h, i) {
+        var time = isNaN(h.time) || h.time > 999999 ? 999.9 : (Math.floor(h.time / 100) / 10).toFixed(1)
+        return '<li class="score"><span class="name">' + h.name + '</span><span class="time">' + time + '</span></li>'
+      })
+      $('.highscores .list').html(listHtml)
+      $('.highscores').show()
     }
   }
 
@@ -115,7 +123,9 @@
     $('.tenths').css('top', Math.floor($(window).width() / 2.8) + 'px')
     $('.flip').css('height', $('.face.front img').height() + 'px')
 
-    $(window).on('mousedown mouseup', function() { boom(Date.now()) })
+    $(window).on('mousedown mouseup', function() {
+      boom(Date.now())
+    })
     $('.name-input-area input').click(function() {
       $(this).val('')
       $(this).attr('maxlength', 3)
@@ -125,7 +135,7 @@
       $(this).css('font-size', '260%')
     })
     $('.name-input-area .ok').click(function() {
-      if($('.name-input-area input').val().length > 3) {
+      if ($('.name-input-area input').val().length > 3) {
         return
       }
       $('.name-input-area').hide()
@@ -134,6 +144,14 @@
         user: $('.name-input-area input').val(),
         score: latestTime
       })
+      if (!highscores || !highscores.list) {
+        highscores = { list: [] }
+      }
+      highscores.list.push({
+        name: $('.name-input-area input').val(),
+        time: latestTime
+      })
+      renderHighScores()
     })
     $('.name-input-area .cancel').click(function() {
       $('.name-input-area').hide()
