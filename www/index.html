@@ -23,6 +23,12 @@
       <div class="top-area">
         GET READY.<br/>LIFT YOUR HAND AND DRINK!
       </div>
+      <div class="name-input-area">
+        <input type="text" value="click here">
+        <img src="img/name-input.png">
+        <div class="cancel"></div>
+        <div class="ok"></div>
+      </div>
       <div class="bottom-area">
         <img class="button-release" src="img/btn-bg-release-full.png"/>
         <img class="button-slam" src="img/notification-slam-to-stop.png"/>
@@ -47,6 +53,7 @@
   var stopTime = 0
   var highscores = undefined
   var GPSlocation = undefined
+  var latestTime = undefined
 
   bindUIfunctionality()
   warmupUIforFastFirstResponse()
@@ -71,6 +78,8 @@
   function boom(time) {
     if (startTime !== 0 && stopTime == 0 && (time - startTime > 800)) {
       stopTime = time
+      latestTime = stopTime - startTime
+      $('.name-input-area').show()
       $('.top-area').text('NICE!')
       $('.button-slam').hide()
       if (highscores && highscores.list) {
@@ -81,10 +90,6 @@
         $('.highscores .list').html(listHtml)
         $('.highscores').show()
       }
-      $.post('http://www.beer-challenge.com/highscores', {
-        location: GPSlocation,
-        score: stopTime - startTime
-      })
     }
   }
 
@@ -111,6 +116,28 @@
     $('.flip').css('height', $('.face.front img').height() + 'px')
 
     $(window).on('mousedown mouseup', function() { boom(Date.now()) })
+    $('.name-input-area input').click(function() {
+      $(this).val('')
+      $(this).attr('maxlength', 3)
+      $(this).css('letter-spacing', '0.3em')
+      $(this).css('text-align', 'left')
+      $(this).css('padding-left', '22%')
+      $(this).css('font-size', '260%')
+    })
+    $('.name-input-area .ok').click(function() {
+      if($('.name-input-area input').val().length > 3) {
+        return
+      }
+      $('.name-input-area').hide()
+      $.post('http://www.beer-challenge.com/highscores', {
+        location: GPSlocation,
+        user: $('.name-input-area input').val(),
+        score: latestTime
+      })
+    })
+    $('.name-input-area .cancel').click(function() {
+      $('.name-input-area').hide()
+    })
 
     $('.card').on('touchstart mousedown',function() {
       $(this).addClass('flipped')
