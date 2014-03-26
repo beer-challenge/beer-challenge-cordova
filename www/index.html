@@ -108,6 +108,9 @@
     $('.seconds').css('line-height', Math.floor($(window).width() / 2) + 'px')
     $('.tenths').css('top', Math.floor($(window).width() / 2.8) + 'px')
     $('.bottom-area').css('top', Math.floor($(window).width()) + 'px')
+
+    $(window).on('mousedown mouseup', function() { boom(Date.now()) })
+
     $('.card').on('touchstart mousedown',function() {
       $(this).addClass('flipped')
     }).on('touchend mouseup', function() {
