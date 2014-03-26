@@ -75,7 +75,8 @@
       $('.button-slam').hide()
       if (highscores && highscores.list) {
         var listHtml = _.map(highscores.list, function(h, i) {
-          return '<li class="score"><span class="name">' + h.name + '</span><span class="time">' + h.time + '</span></li>'
+          var time = isNaN(h.time) || h.time > 999999 ? 999.9 : (Math.floor(h.time / 100) / 10).toFixed(1)
+          return '<li class="score"><span class="name">' + h.name + '</span><span class="time">' + time + '</span></li>'
         })
         $('.highscores .list').html(listHtml)
         $('.highscores').show()

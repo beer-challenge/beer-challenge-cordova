@@ -149,7 +149,7 @@ body {
 
 .highscores .highscores__title {
     border-bottom: solid 1px #27372c;
-    margin: 0 10% 7% 10%;
+    margin: 0 10% 4% 10%;
     font-family: Frontage-Regular;
 }
 
@@ -162,18 +162,19 @@ body {
     text-align: left;
     width: 85%;
     margin: auto;
+    font-size: 90%;
 }
 
 .highscores .list .score:before {
     content: counter(item) "  ";
     counter-increment: item;
     display: inline-block;
-    width: 10%;
+    width: 1.2em;
 }
 
 .highscores .list .score .name {
     display: inline-block;
-    width: 10%;
+    width: 2em;
 }
 
 .highscores .list .score .time {
