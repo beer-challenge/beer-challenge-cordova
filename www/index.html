@@ -107,7 +107,7 @@
     $('.seconds').css('top', Math.floor($(window).width() / 2.35) + 'px')
     $('.seconds').css('line-height', Math.floor($(window).width() / 2) + 'px')
     $('.tenths').css('top', Math.floor($(window).width() / 2.8) + 'px')
-    $('.bottom-area').css('top', Math.floor($(window).width()) + 'px')
+    $('.flip').css('height', $('.face.front img').height() + 'px')
 
     $(window).on('mousedown mouseup', function() { boom(Date.now()) })
 
