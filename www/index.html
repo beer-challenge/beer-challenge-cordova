@@ -14,6 +14,8 @@
   <div class="card">
     <div class="face front">
       <img class="nexus7reso" src="img/aloitus.png"/>
+      <div class="device"></div>
+      <div class="start"></div>
     </div>
     <div class="face back">
       <div class="seconds">0</div>
@@ -55,12 +57,17 @@
   var highscores = undefined
   var GPSlocation = undefined
   var latestTime = undefined
+  var hasCoaster = undefined
 
   bindUIfunctionality()
   warmupUIforFastFirstResponse()
   fetchHighScores()
   document.addEventListener('deviceready', function() {
-    notifyOnTrembleThreshold(trembleThreshold, boom)
+    notifyOnTrembleThreshold(trembleThreshold, function(time) {
+      if (!hasCoaster) {
+        boom(time)
+      }
+    })
     navigator.geolocation.getCurrentPosition(function(pos) {
       GPSlocation = pos
       $.post('http://www.beer-challenge.com/highscores', { location: pos })
@@ -123,7 +130,7 @@
     $('.tenths').css('top', Math.floor($(window).width() / 2.8) + 'px')
     $('.flip').css('height', $('.face.front img').height() + 'px')
 
-    $(window).on('mousedown mouseup', function() {
+    $(window).on('mousedown mousemove mouseout mouseover mouseup mousewheel', function() {
       boom(Date.now())
     })
     $('.name-input-area input').click(function() {
@@ -157,13 +164,32 @@
       $('.name-input-area').hide()
     })
 
-    $('.card').on('touchstart mousedown',function() {
-      $(this).addClass('flipped')
-    }).on('touchend mouseup', function() {
+    $('.flip .card .front .device').on('touchstart mousedown', function() {
+      if (hasCoaster !== false) {
+        hasCoaster = true
+        $('.card').addClass('flipped')
+        alert('Place your beer on the Beer Challenge Electronic Coaster, press OK and start drinking when ready!')
+        setTimeout(function() {
+          $('.card').on('mousedown mousemove mouseout mouseover mouseup mousewheel', function() {
+            if (startTime == 0) {
+              go()
+            }
+          })
+        }, 800)
+      }
+    })
+
+    $('.flip .card .front .start').on('touchstart mousedown', function() {
+      if (!hasCoaster) {
+        hasCoaster = false
+        $('.card').on('touchend mouseup', function() {
           if (startTime == 0) {
             go()
           }
         })
+      }
+      $('.card').addClass('flipped')
+    })
     //Disable scrolling of view (when Android navigation menu is shown)
     document.addEventListener('touchmove', function(e) {
       e.preventDefault()

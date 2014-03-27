@@ -104,6 +104,22 @@ body {
     z-index: 1;
 }
 
+.flip .card .front .start {
+    position: absolute;
+    width: 36%;
+    height: 18%;
+    top: 70%;
+    left: 32%;
+}
+
+.flip .card .front .device {
+    position: absolute;
+    width: 36%;
+    height: 15%;
+    top: 13%;
+    left: 32%;
+}
+
 .flip .card .back {
     -webkit-transform: rotatey(-180deg);
 }
