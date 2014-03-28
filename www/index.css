@@ -17,6 +17,14 @@ body {
     cursor: none;
 }
 
+* {
+    cursor: none;
+}
+
+*:hover {
+    cursor: none;
+}
+
 .content {
     background-color: #ffc230;
     margin: auto;
