@@ -118,9 +118,13 @@
 
   function warmupUIforFastFirstResponse() {
     $('.card').addClass('flipped')
-    window.requestAnimationFrame(function() {
+    if (window.requestAnimationFrame) {
+      window.requestAnimationFrame(function() {
+        $('.card').removeClass('flipped')
+      })
+    } else {
       $('.card').removeClass('flipped')
-    })
+    }
   }
 
   function bindUIfunctionality() {
@@ -226,7 +230,11 @@
       }
       $('.tenths').text(Math.floor(elapsedMillis / 100) % 10)
       if (stopTime == 0) {
-        window.requestAnimationFrame(updateTime)
+        if (window.requestAnimationFrame) {
+          window.requestAnimationFrame(updateTime)
+        } else {
+          updateTime()
+        }
       }
     }
   }
