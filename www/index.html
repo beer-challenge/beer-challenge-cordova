@@ -118,13 +118,9 @@
 
   function warmupUIforFastFirstResponse() {
     $('.card').addClass('flipped')
-    if (window.requestAnimationFrame) {
-      window.requestAnimationFrame(function() {
-        $('.card').removeClass('flipped')
-      })
-    } else {
+    window.requestAnimationFrame(function() {
       $('.card').removeClass('flipped')
-    }
+    })
   }
 
   function bindUIfunctionality() {
@@ -230,11 +226,7 @@
       }
       $('.tenths').text(Math.floor(elapsedMillis / 100) % 10)
       if (stopTime == 0) {
-        if (window.requestAnimationFrame) {
-          window.requestAnimationFrame(updateTime)
-        } else {
-          updateTime()
-        }
+        window.requestAnimationFrame(updateTime)
       }
     }
   }
