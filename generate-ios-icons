@@ -1,0 +1,63 @@
+cp www/img/logo.png platforms/ios/Beer\ Challenge/Resources/icons/icon.png
+sips -Z 57 platforms/ios/Beer\ Challenge/Resources/icons/icon.png
+
+cp www/img/logo.png platforms/ios/Beer\ Challenge/Resources/icons/icon@2x.png
+sips -Z 57 platforms/ios/Beer\ Challenge/Resources/icons/icon@2x.png
+
+cp www/img/logo.png platforms/ios/Beer\ Challenge/Resources/icons/icon-40.png
+sips -Z 40 platforms/ios/Beer\ Challenge/Resources/icons/icon-40.png
+
+cp www/img/logo.png platforms/ios/Beer\ Challenge/Resources/icons/icon-40@2x.png
+sips -Z 80 platforms/ios/Beer\ Challenge/Resources/icons/icon-40@2x.png
+
+cp www/img/logo.png platforms/ios/Beer\ Challenge/Resources/icons/icon-50.png
+sips -Z 40 platforms/ios/Beer\ Challenge/Resources/icons/icon-50.png
+
+cp www/img/logo.png platforms/ios/Beer\ Challenge/Resources/icons/icon-60.png
+sips -Z 40 platforms/ios/Beer\ Challenge/Resources/icons/icon-60.png
+
+cp www/img/logo.png platforms/ios/Beer\ Challenge/Resources/icons/icon-76.png
+sips -Z 40 platforms/ios/Beer\ Challenge/Resources/icons/icon-76.png
+
+cp www/img/logo.png platforms/ios/Beer\ Challenge/Resources/icons/icon-72.png
+sips -Z 40 platforms/ios/Beer\ Challenge/Resources/icons/icon-72.png
+
+cp www/img/logo.png platforms/ios/Beer\ Challenge/Resources/icons/icon-small.png
+sips -Z 40 platforms/ios/Beer\ Challenge/Resources/icons/icon-small.png
+
+cp www/img/logo.png platforms/ios/Beer\ Challenge/Resources/icons/icon-50@2x.png
+sips -Z 40 platforms/ios/Beer\ Challenge/Resources/icons/icon-50@2x.png
+
+cp www/img/logo.png platforms/ios/Beer\ Challenge/Resources/icons/icon-60@2x.png
+sips -Z 40 platforms/ios/Beer\ Challenge/Resources/icons/icon-60@2x.png
+
+cp www/img/logo.png platforms/ios/Beer\ Challenge/Resources/icons/icon-76@2x.png
+sips -Z 40 platforms/ios/Beer\ Challenge/Resources/icons/icon-76@2x.png
+
+cp www/img/logo.png platforms/ios/Beer\ Challenge/Resources/icons/icon-72@2x.png
+sips -Z 40 platforms/ios/Beer\ Challenge/Resources/icons/icon-72@2x.png
+
+cp www/img/logo.png platforms/ios/Beer\ Challenge/Resources/icons/icon-small@2x.png
+sips -Z 40 platforms/ios/Beer\ Challenge/Resources/icons/icon-small@2x.png
+
+cp www/img/logo.png platforms/ios/Beer\ Challenge/Resources/splash/Default-568h@2x~iphone.png
+sips -z 1136 640 platforms/ios/Beer\ Challenge/Resources/splash/Default-568h@2x~iphone.png
+
+cp www/img/logo.png platforms/ios/Beer\ Challenge/Resources/splash/Default-Landscape@2x~ipad.png
+sips -z 1536 2048 platforms/ios/Beer\ Challenge/Resources/splash/Default-Landscape@2x~ipad.png
+
+cp www/img/logo.png platforms/ios/Beer\ Challenge/Resources/splash/Default-Landscape~ipad.png
+sips -z 768 1024 platforms/ios/Beer\ Challenge/Resources/splash/Default-Landscape~ipad.png
+
+cp www/img/logo.png platforms/ios/Beer\ Challenge/Resources/splash/Default-Portrait@2x~ipad.png
+sips -z 1536 2048 platforms/ios/Beer\ Challenge/Resources/splash/Default-Portrait@2x~ipad.png
+
+cp www/img/logo.png platforms/ios/Beer\ Challenge/Resources/splash/Default-Portrait~ipad.png
+sips -z 1024 768 platforms/ios/Beer\ Challenge/Resources/splash/Default-Portrait~ipad.png
+
+cp www/img/logo.png platforms/ios/Beer\ Challenge/Resources/splash/Default@2x~iphone.png
+sips -z 969 640 platforms/ios/Beer\ Challenge/Resources/splash/Default@2x~iphone.png
+
+cp www/img/logo.png platforms/ios/Beer\ Challenge/Resources/splash/Default~iphone.png
+sips -z 480 320 platforms/ios/Beer\ Challenge/Resources/splash/Default~iphone.png
+
