@@ -1,0 +1,252 @@
+* {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+}
+
+body {
+    -webkit-touch-callout: none; /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none; /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none; /* prevent copy paste, to allow, change 'none' to 'text' */
+    background-color: black;
+    background-attachment: fixed;
+    font-family: 'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+    font-size: 24px;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    cursor: none;
+}
+
+* {
+    cursor: none;
+}
+
+*:hover {
+    cursor: none;
+}
+
+.content {
+    background-color: #ffc230;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    display: none;
+}
+
+.logo {
+    width: 25%;
+}
+
+.button {
+    color: #ffc230;
+    background-color: black;
+    border: none;
+    font-size: 200%;
+}
+
+.button_active {
+    background-color: red;
+}
+
+@font-face {
+    font-family: BebasNeue;
+    src: url(fonts/BebasNeue.otf);
+}
+
+@font-face {
+    font-family: Frontage-Regular;
+    src: url(fonts/Frontage-Regular.otf);
+}
+
+.seconds {
+    color: #43614C;
+    position: absolute;
+    top: 25.5%;
+    left: 0;
+    width: 100%;
+    font-size: 750%;
+    font-family: BebasNeue;
+    text-align: center;
+}
+
+.tenths {
+    color: #43614C;
+    position: absolute;
+    top: 9%;
+    left: 72.5%;
+    font-size: 300%;
+    font-family: BebasNeue;
+}
+
+.flip {
+    -webkit-perspective: 800;
+    width: 100%;
+    position: relative;
+}
+
+.nexus7reso {
+    width: 100%;
+}
+
+.flip .card.flipped {
+    -webkit-transform: rotatey(-180deg);
+}
+
+.flip .card {
+    width: 100%;
+    height: 100%;
+    -webkit-transform-style: preserve-3d;
+    -webkit-transition: 0.5s;
+}
+
+.flip .card .face {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    -webkit-backface-visibility: hidden;
+    z-index: 2;
+}
+
+.flip .card .front {
+    position: absolute;
+    z-index: 1;
+}
+
+.flip .card .front .start {
+    position: absolute;
+    width: 36%;
+    height: 18%;
+    top: 70%;
+    left: 32%;
+}
+
+.flip .card .front .device {
+    position: absolute;
+    width: 36%;
+    height: 15%;
+    top: 13%;
+    left: 32%;
+}
+
+.flip .card .back {
+    -webkit-transform: rotatey(-180deg);
+}
+
+.top-area {
+    position: absolute;
+    top: 0.5em;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: #27372c;
+    font-size: 140%;
+    font-family: BebasNeue;
+}
+
+.bottom-area {
+    position: absolute;
+    top: 64%;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.button-release {
+    width: 43%;
+}
+
+.button-slam {
+    display: none;
+    width: 40%;
+    margin-top: 15%;
+}
+
+.highscores {
+    position: absolute;
+    top: 10%;
+    left: 0;
+    width: 100%;
+    font-family: BebasNeue;
+    color: #27372c;
+    display: none;
+}
+
+.highscores .highscores__title {
+    border-bottom: solid 1px #27372c;
+    margin: 0 10% 4% 10%;
+    font-family: Frontage-Regular;
+}
+
+.highscores .list {
+    counter-reset: item;
+    list-style-type: none;
+    columns: 2;
+    -webkit-columns: 2;
+    -moz-columns: 2;
+    text-align: left;
+    width: 85%;
+    margin: auto;
+    font-size: 90%;
+}
+
+.highscores .list .score:before {
+    content: counter(item) "  ";
+    counter-increment: item;
+    display: inline-block;
+    width: 1.2em;
+}
+
+.highscores .list .score .name {
+    display: inline-block;
+    width: 2em;
+}
+
+.highscores .list .score .time {
+    width: 15%;
+    display: inline-block;
+    text-align: right;
+}
+
+.name-input-area {
+    position: absolute;
+    top: 0%;
+    z-index: 3;
+    display: none;
+}
+
+.name-input-area img {
+    width: 100%;
+}
+
+.name-input-area .cancel {
+    width: 50%;
+    height: 28%;
+    position: absolute;
+    top: 70%;
+}
+
+.name-input-area .ok {
+    width: 50%;
+    height: 28%;
+    position: absolute;
+    top: 70%;
+    right: 0;
+}
+
+.name-input-area input {
+    width: 100%;
+    height: 50%;
+    position: absolute;
+    top: 15%;
+    background: transparent;
+    border: none;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 140%;
+    color: #be2d2d;
+}
+
+*:focus {
+    outline: none;
+}

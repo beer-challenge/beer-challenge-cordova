@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="format-detection" content="telephone=no"/>
+  <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+  <meta name="viewport"
+        content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi"/>
+  <link rel="stylesheet" type="text/css" href="index.css"/>
+  <title>Beer Challenge</title>
+</head>
+<body>
+<div class="flip">
+  <div class="card">
+    <div class="face front">
+      <img class="nexus7reso" src="img/aloitus.png"/>
+      <div class="device"></div>
+      <div class="start"></div>
+    </div>
+    <div class="face back">
+      <div class="seconds">0</div>
+      <div class="tenths">0</div>
+      <img class="nexus7reso" src="img/timer-zero.png"/>
+
+      <div class="top-area">
+        GET READY.<br/>LIFT YOUR HAND AND DRINK!
+      </div>
+      <div class="name-input-area">
+        <input type="text" value="click here">
+        <img src="img/name-input.png">
+
+        <div class="cancel"></div>
+        <div class="ok"></div>
+      </div>
+      <div class="bottom-area">
+        <img class="button-release" src="img/btn-bg-release-full.png"/>
+        <img class="button-slam" src="img/notification-slam-to-stop.png"/>
+
+        <div class="highscores">
+          <div class="highscores__title">TODAYS BEST</div>
+          <ol class="list">
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="js/lodash.min.js"></script>
+<script type="text/javascript" src="js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript" src="js/accel.js"></script>
+<script type="text/javascript">
+  var trembleThreshold = 0.5
+  var startTime = 0
+  var stopTime = 0
+  var highscores = undefined
+  var GPSlocation = undefined
+  var latestTime = undefined
+  var hasCoaster = undefined
+
+  requestAnimationFramePolyfill()
+  bindUIfunctionality()
+  warmupUIforFastFirstResponse()
+  fetchHighScores()
+  document.addEventListener('deviceready', function() {
+    notifyOnTrembleThreshold(trembleThreshold, function(time) {
+      if (!hasCoaster) {
+        boom(time)
+      }
+    })
+    navigator.geolocation.getCurrentPosition(function(pos) {
+      GPSlocation = pos
+      $.post('http://www.beer-challenge.com/highscores', { location: pos })
+          .done(function(data) {
+            highscores = data
+          })
+    }, function() {
+      $.post('http://www.beer-challenge.com/noBeer', { msg: 'no GPSlocation'})
+    }, {
+      enableHighAccuracy: true,
+      timeout: 20000,
+      maximumAge: 18000000
+    })
+  })
+
+  function boom(time) {
+    if (startTime !== 0 && stopTime == 0 && (time - startTime > 800)) {
+      stopTime = time
+      latestTime = stopTime - startTime
+      $('.name-input-area').show()
+      $('.top-area').text('NICE!')
+      $('.button-slam').hide()
+      renderHighScores()
+    }
+  }
+
+  function renderHighScores() {
+    if (highscores && highscores.list) {
+      var sorted = _.sortBy(highscores.list, function(i) {
+        return i.time
+      })
+      var listHtml = _.map(sorted.slice(0, 10), function(h, i) {
+        var time = isNaN(h.time) || h.time > 999999 ? 999.9 : (Math.floor(h.time / 100) / 10).toFixed(1)
+        return '<li class="score"><span class="name">' + h.name + '</span><span class="time">' + time + '</span></li>'
+      })
+      $('.highscores .list').html(listHtml)
+      $('.highscores').show()
+    }
+  }
+
+  function fetchHighScores() {
+    $.get('http://www.beer-challenge.com/highscores').done(function(data) {
+      if (!highscores) {
+        highscores = data
+      }
+    })
+  }
+
+  function warmupUIforFastFirstResponse() {
+    $('.card').addClass('flipped')
+    window.requestAnimationFrame(function() {
+      $('.card').removeClass('flipped')
+    })
+  }
+
+  function bindUIfunctionality() {
+    $('body').css('font-size', Math.floor($(window).width() / 15) + 'px')
+    $('.seconds').css('top', Math.floor($(window).width() / 2.35) + 'px')
+    $('.seconds').css('line-height', Math.floor($(window).width() / 2) + 'px')
+    $('.tenths').css('top', Math.floor($(window).width() / 2.8) + 'px')
+    $('.flip').css('height', $('.face.front img').height() + 'px')
+
+    $(window).on('mousedown mousemove mouseout mouseover mouseup mousewheel', function() {
+      boom(Date.now())
+    })
+    $('.name-input-area input').click(function() {
+      $(this).val('')
+      $(this).attr('maxlength', 3)
+      $(this).css('letter-spacing', '0.3em')
+      $(this).css('text-align', 'left')
+      $(this).css('padding-left', '22%')
+      $(this).css('font-size', '260%')
+    })
+    $('.name-input-area .ok').click(function() {
+      if ($('.name-input-area input').val().length > 3) {
+        return
+      }
+      $('.name-input-area').hide()
+      $.post('http://www.beer-challenge.com/highscores', {
+        location: GPSlocation,
+        user: $('.name-input-area input').val(),
+        score: latestTime
+      })
+      if (!highscores || !highscores.list) {
+        highscores = { list: [] }
+      }
+      highscores.list.push({
+        name: $('.name-input-area input').val(),
+        time: latestTime
+      })
+      renderHighScores()
+    })
+    $('.name-input-area .cancel').click(function() {
+      $('.name-input-area').hide()
+    })
+
+    $('.flip .card .front .device').on('touchstart mousedown', function() {
+      if (hasCoaster !== false) {
+        hasCoaster = true
+        $('.card').addClass('flipped')
+        alert('Place your beer on the Beer Challenge Electronic Coaster, press OK and start drinking when ready!')
+        setTimeout(function() {
+          $('.card').on('mousedown mousemove mouseout mouseover mouseup mousewheel', function() {
+            if (startTime == 0) {
+              go()
+            }
+          })
+        }, 800)
+      }
+    })
+
+    $('.flip .card .front .start').on('touchstart mousedown', function() {
+      if (!hasCoaster) {
+        hasCoaster = false
+        $('.card').on('touchend mouseup', function() {
+          if (startTime == 0) {
+            go()
+          }
+        })
+      }
+      $('.card').addClass('flipped')
+    })
+    //Disable scrolling of view (when Android navigation menu is shown)
+    document.addEventListener('touchmove', function(e) {
+      e.preventDefault()
+    }, false)
+    document.addEventListener("backbutton", onBackButton, false)
+
+    function go() {
+      startTime = Date.now()
+      updateTime()
+      $('.top-area').css('font-size', '260%')
+      $('.top-area').text('GO!')
+      $('.button-release').hide()
+      $('.button-slam').show()
+    }
+
+    function onBackButton() {
+      $('.card').removeClass('flipped')
+      location.reload()
+    }
+
+    function updateTime() {
+      var elapsedMillis = Date.now() - startTime
+      var secs = Math.floor(elapsedMillis / 1000)
+      if (secs > $('.seconds').text()) {
+        if (secs == 10) {
+          $(".seconds").css('font-size', '600%')
+        } else if (secs == 100) {
+          $(".seconds").css('font-size', '500%')
+        } else if (secs > 100) {
+          var sizePx = $(".seconds").css('font-size')
+          $(".seconds").css('font-size', sizePx.substring(0, sizePx.indexOf('px')) - 1)
+        }
+        $(".seconds").text(secs)
+      }
+      $('.tenths').text(Math.floor(elapsedMillis / 100) % 10)
+      if (stopTime == 0) {
+        window.requestAnimationFrame(updateTime)
+      }
+    }
+  }
+
+  // http://paulirish.com/2011/requestanimationframe-for-smart-animating/
+  // http://my.opera.com/emoller/blog/2011/12/20/requestanimationframe-for-smart-er-animating
+  // requestAnimationFrame polyfill by Erik Möller. fixes from Paul Irish and Tino Zijdel
+  // MIT license
+  function requestAnimationFramePolyfill() {
+    var lastTime = 0;
+    var vendors = ['ms', 'moz', 'webkit', 'o'];
+    for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+      window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
+      window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame']
+          || window[vendors[x]+'CancelRequestAnimationFrame'];
+    }
+
+    if (!window.requestAnimationFrame)
+      window.requestAnimationFrame = function(callback, element) {
+        var currTime = new Date().getTime();
+        var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+        var id = window.setTimeout(function() { callback(currTime + timeToCall); },
+            timeToCall);
+        lastTime = currTime + timeToCall;
+        return id;
+      };
+
+    if (!window.cancelAnimationFrame)
+      window.cancelAnimationFrame = function(id) {
+        clearTimeout(id);
+      };
+  }
+</script>
+
+</body>
+</html>
